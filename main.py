@@ -48,10 +48,10 @@ def allvert(listvertex,alonev): # формирует список всех ве�
     for i in range(0,len(alonev)):
         listvertex.append(alonev[i])
     return list(set(listvertex))
-def connect_of_vertex(list_after,vertex):
+def connect_of_vertex(list_after,allvertex):
     connect_vertex={}
     list_of_vertex=[]
-    for i in vertex:
+    for i in allvertex:
         for k in range(0,len(list_after)):
             if i in list_after[k]:
                 list_of_vertex.append(list_after[k][0])
@@ -67,21 +67,21 @@ def connect_of_vertex(list_after,vertex):
             list_of_vertex=[]
     return connect_vertex
 
-def connect_Graph():
+def connect_Graph(): #метод обход графа в ширину 
     gray_vertex=[]
     black_vertex=[]
     white_vertex=[]
-    for i in vertex:
+    for i in allvertex:
         white_vertex.append(i)
     q=[]
-    start_vertex=vertex[0]
-    final_vertex=vertex[1]
+    start_vertex=allvertex[0]
+    final_vertex=allvertex[1]
     q.append(start_vertex)
 
     while q:
         for i in q:
             gray_vertex.append(i)
-            for k in connect_of_vertex[i]:
+            for k in connect_vertex[i]:
                 if k not in black_vertex:
                     gray_vertex.append(k)
                     q.append(k)
@@ -94,18 +94,20 @@ def connect_Graph():
         print("\nГраф не является связным\n")
     else:
         print("\nГраф является связным\n")
-string = read_txt("list_of_edges15.txt")
+string = read_txt("list_of_edges100.txt")
 list_before = split(string)
 list_after = edges(list_before)
 edgess = list_after
 listvertex =  vertex(list_after)
 alonev = alonevertex(list_before)
 allvertex = allvert(listvertex,alonev)
+connect_vertex=connect_of_vertex(list_after,allvertex) 
 G = nx.Graph()
 exgraf = graf(allvertex, list_after)
-vertex = [1,2,3,4,5]
 G.add_nodes_from(exgraf.vertex)
 G.add_edges_from(exgraf.edges)
 exgraf.output()
+
+connect_Graph()
 nx.draw(G, with_labels=1)
 plt.show()
