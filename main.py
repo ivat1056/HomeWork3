@@ -94,7 +94,7 @@ def connect_Graph(): #метод обход графа в ширину
         print("\nГраф не является связным\n")
     else:
         print("\nГраф является связным\n")
-string = read_txt("list_of_edges100.txt")
+string = read_txt("list_of_edges15.txt")
 list_before = split(string)
 list_after = edges(list_before)
 edgess = list_after
@@ -107,7 +107,6 @@ exgraf = graf(allvertex, list_after)
 G.add_nodes_from(exgraf.vertex)
 G.add_edges_from(exgraf.edges)
 exgraf.output()
-
 connect_Graph()
 nx.draw(G, with_labels=1)
 plt.show()
